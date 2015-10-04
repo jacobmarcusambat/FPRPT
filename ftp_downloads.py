@@ -41,6 +41,7 @@ for item in d:
 	if not os.path.exists(ftp_path):
 		os.makedirs(ftp_path)
 	item_path = ftp_path + '/%s' %item
+	
 	if not os.path.exists(item_path):
 		os.makedirs(item_path)
 		
