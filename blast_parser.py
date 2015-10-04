@@ -16,6 +16,8 @@ path = '/home/jacob/Desktop/INPUT'
 
 
 
+
+
 rootDir = '.'
 blast_files = []
 for root, subdirList, fileList in os.walk(rootDir, topdown=False):
