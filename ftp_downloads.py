@@ -44,32 +44,38 @@ for item in d.keys()[:]:
 for item in d:
 	
 	ftp_path = '/home/jacob/Desktop/RESULT/FTP'
-	if not os.path.exists(ftp_path):
-		os.makedirs(ftp_path)
-	item_path = ftp_path + '/%s' %item
-	print item_path
-	#itempaths.append(item_path)
-	if not os.path.exists(item_path):
-		os.makedirs(item_path)
-		
-	counter = 0
-	values = d[item]
 	
-	os.chdir(item_path)
-	for value in values:
-		out = open('%s' % value, 'w')
-		fetch_success = False
-		while(fetch_success == False):
-			try:
-				handle = Entrez.efetch(db="protein", id=value, retmode="xml")
-				records = Entrez.read(handle)
-				fastaseq = value.rstrip()+" "+records[0]["GBSeq_primary-accession"]+" "+records[0]["GBSeq_definition"]+"\n"+records[0]["GBSeq_sequence"]
-				out.write(fastaseq)
-				out.close()
-				fetch_success = True
-			except:
-				pass
-			time.sleep(1) # to make sure not many requests go per second to ncbi
-	counter += 1
+	if os.path.exists(ftp_path):
+		print "File already exists"
+	
+	else:
+		#if not os.path.exists(ftp_path):
+		os.makedirs(ftp_path)
+		item_path = ftp_path + '/%s' %item
+		print item_path
+		#itempaths.append(item_path)
+		if not os.path.exists(item_path):
+			os.makedirs(item_path)
+			
+			counter = 0
+			values = d[item]
+			
+			os.chdir(item_path)
+			for value in values:
+				out = open('%s' % value, 'w')
+				fetch_success = False
+				while(fetch_success == False):
+					try:
+						handle = Entrez.efetch(db="protein", id=value, retmode="xml")
+						records = Entrez.read(handle)
+						fastaseq = value.rstrip()+" "+records[0]["GBSeq_primary-accession"]+" "+records[0]["GBSeq_definition"]+"\n"+records[0]["GBSeq_sequence"]
+						out.write(fastaseq)
+						out.close()
+						fetch_success = True
+					except:
+						pass
+					time.sleep(1) # to make sure not many requests go per second to ncbi	
+			counter += 1
+		
 	
 
