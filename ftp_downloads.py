@@ -35,24 +35,31 @@ for item in d.keys()[:]:
 		line += '\t%s' % hit
 	ftps.write("%s\n" % line)	
 	
-
+#for items in d:
+	#value = d[items]
+	#print value
+	
+	
+#itempaths=[]
 for item in d:
+	
 	ftp_path = '/home/jacob/Desktop/RESULT/FTP'
 	if not os.path.exists(ftp_path):
 		os.makedirs(ftp_path)
 	item_path = ftp_path + '/%s' %item
-	
+	print item_path
+	#itempaths.append(item_path)
 	if not os.path.exists(item_path):
 		os.makedirs(item_path)
 		
-		
-for item in d.itervalues():	
-	values = item
+	counter = 0
+	values = d[item]
+	
 	os.chdir(item_path)
 	for value in values:
-	    out = open('%s' % value, 'w')
-	    fetch_success = False
-	    while(fetch_success == False):
+		out = open('%s' % value, 'w')
+		fetch_success = False
+		while(fetch_success == False):
 			try:
 				handle = Entrez.efetch(db="protein", id=value, retmode="xml")
 				records = Entrez.read(handle)
@@ -62,5 +69,7 @@ for item in d.itervalues():
 				fetch_success = True
 			except:
 				pass
-	    time.sleep(1) # to make sure not many requests go per second to ncbi
+			time.sleep(1) # to make sure not many requests go per second to ncbi
+	counter += 1
+	
 
