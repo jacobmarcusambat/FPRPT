@@ -1,0 +1,2 @@
+path1 = /home/jacob/Desktop/INPUT
+

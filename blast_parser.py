@@ -12,11 +12,11 @@ import ntpath
 from collections import defaultdict
 
 
-path = '/home/jacob/Desktop/INPUT'
-
-
-
-
+#path = '/home/jacob/Desktop/INPUT'
+path = open('config.txt').read().splitlines()[0].split('=')[-1]
+print path
+print 'MOdule1:'
+print 'parsing the input blastp files'
 
 rootDir = '.'
 blast_files = []
